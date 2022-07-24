@@ -39,6 +39,25 @@ class BinarySearchTree {
             }
         }
     }
+
+    lookup(value) {
+        if (!this.root) {
+            return false;
+        }
+
+        let currentNode = this.root;
+        while (currentNode) {
+            if (currentNode.value > value) {
+                currentNode = currentNode.left;
+            } else if (currentNode.value < value) {
+                currentNode = currentNode.right;
+            } else if (currentNode.value === value) {
+                return currentNode;
+            }
+        }
+
+        return false;
+    }
 }
 
 const tree = new BinarySearchTree();
@@ -49,47 +68,16 @@ tree.insert(20);
 tree.insert(170);
 tree.insert(15);
 tree.insert(1);
-console.log(JSON.stringify(tree.root));
-
-function traverse(node) {
-    const tree = {value: node.value};
-    tree.left = node.left === null ? null : traverse(node.left);
-    tree.right = node.right === null ? null : traverse(node.right);
-    return tree;
-}
+console.log(tree.lookup(20));
 
 ```
 
 <p>Output</p>
 
-```json
-{
-  "value": 9,
-  "left": {
-    "value": 4,
-    "left": {
-      "value": 1,
-      "left": null,
-      "right": null
-    },
-    "right": {
-      "value": 6,
-      "left": null,
-      "right": null
-    }
-  },
-  "right": {
-    "value": 20,
-    "left": {
-      "value": 15,
-      "left": null,
-      "right": null
-    },
-    "right": {
-      "value": 170,
-      "left": null,
-      "right": null
-    }
-  }
+```
+Node {
+  value: 20,
+  left: Node { value: 15, left: null, right: null },
+  right: Node { value: 170, left: null, right: null }
 }
 ```
